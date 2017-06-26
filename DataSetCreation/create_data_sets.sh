@@ -31,7 +31,7 @@ network = 'CHO_network.txt'
 gibbs_text = 'thermo/gibbs_text.txt'
 # all the nasa9 files must be placed in the folder: thermo/NASA9/
 com_file = 'thermo/HOC_compose.txt'
-atm_file = 'atm/atm_HD189.txt'
+atm_file = 'atm/atm_HD189_Kzz.txt'
 output_dir = 'output/'
 plot_dir = 'plot/'
 out_name = 'test.vul'
@@ -113,8 +113,8 @@ use_PIL = True
 EOF
 }
 
-arr1=( 1 2 ) #initial degree
-arr2=( 5 10 ) #percentile
+arr1=( 1e-5 1e-4 1e-3 1e-2  ) #O-H
+arr2=( 1e-5 1e-4 1e-3 1e-2 ) #C-H
 
 if [ "$#" -ne 3 ]; then
     echo "Illegal number of parameters"
@@ -131,10 +131,10 @@ do
     rundir=$PWD
     executable_path=$1
     cp
-    write_cfg $rundir "vulcan.py" $SHORTNAME
-    cp -r "${executable_path}/*" .
+    write_submit $rundir "vulcan.py" $SHORTNAME
+    cp -r "${executable_path}"/* .
     rm vulcan_cfg.py
-    write_options $a $b
+    write_cfg $a $b
     #	qsub submit.sh
     cd ..
     done  
