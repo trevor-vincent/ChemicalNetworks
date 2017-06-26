@@ -2,8 +2,8 @@
 
 function write_submit {
     cat <<EOF1 > submit.sh
-#PBS -l nodes=1:ppn=1
-#PBS -l walltime=1:00:00
+#PBS -l nodes=1:ppn=8
+#PBS -l walltime=00:15:00
 #PBS -o ${1}/vulcan.stdout
 #PBS -e ${1}/vulcan.stderr
 #PBS -d .
@@ -113,7 +113,7 @@ use_PIL = True
 EOF
 }
 
-arr1=( 1e-5 1e-4 1e-3 1e-2  ) #O-H
+arr1=( 1e-5 1e-4 1e-3 1e-2 ) #O-H
 arr2=( 1e-5 1e-4 1e-3 1e-2 ) #C-H
 
 if [ "$#" -ne 3 ]; then
@@ -135,7 +135,7 @@ do
     cp -r "${executable_path}"/* .
     rm vulcan_cfg.py
     write_cfg $a $b
-    #	qsub submit.sh
+    	# qsub submit.sh
     cd ..
     done  
 done
