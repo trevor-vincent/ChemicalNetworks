@@ -3,7 +3,7 @@
 function write_submit {
     cat <<EOF1 > submit.sh
 #PBS -l nodes=1:ppn=8
-#PBS -l walltime=00:15:00
+#PBS -l walltime=00:30:00
 #PBS -o ${1}/vulcan.stdout
 #PBS -e ${1}/vulcan.stderr
 #PBS -d .
@@ -121,8 +121,9 @@ arr2=( 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.71 0.72 0.73 0.74 0.75 0.76 0.77 0.78 0.79 
   5.5  5.6  5.7  5.8  5.9  6.   6.1  6.2  6.3  6.4  6.5  6.6  6.7  6.8  6.9
   7.   7.1  7.2  7.3  7.4  7.5  7.6  7.7  7.8  7.9  8.   8.1  8.2  8.3  8.4
   8.5  8.6  8.7  8.8  8.9  9.   9.1  9.2  9.3  9.4  9.5  9.6  9.7  9.8  9.9 )
-if [ "$#" -ne 3 ]; then
-    echo "Illegal number of parameters"
+
+if [ "$#" -ne 1 ]; then
+    echo "create_data_sets... <ABSOLUTE_PATH_TO_VULCAN_DIR>"
 fi
 
 for a in "${arr1[@]}"
@@ -135,7 +136,6 @@ do
     SHORTNAME="CH_${a}_CO_${b}"
     rundir=$PWD
     executable_path=$1
-    cp
     write_submit $rundir "vulcan.py" $SHORTNAME
     cp -r "${executable_path}"/* .
     rm vulcan_cfg.py
@@ -144,4 +144,3 @@ do
     cd ..
     done  
 done
-
